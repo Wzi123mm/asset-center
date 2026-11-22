@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#080d18">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="资产中心">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <title>资产中心</title>
+  <style>
+    :root{color-scheme:dark;--bg:#080d18;--panel:#111a2b;--panel2:#172238;--line:#26334a;--muted:#8d9bb2;--text:#f2f5fb;--blue:#729cff;--green:#4bd5a2;--red:#ff7d8b;--gold:#e8bd69}
+    *{box-sizing:border-box} body{margin:0;background:radial-gradient(ellipse at 50% -10%,#1c2c4c 0,transparent 45%),var(--bg);color:var(--text);font:15px -apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang SC",sans-serif;padding-bottom:calc(82px + env(safe-area-inset-bottom))}
+    button,input,select{font:inherit} button{cursor:pointer}
+    .wrap{max-width:760px;margin:auto;padding:18px 16px 24px}
+    header{display:flex;justify-content:space-between;align-items:center;margin:8px 2px 20px}
+    .brand{font-size:20px;font-weight:750;letter-spacing:.4px}.sub{font-size:12px;color:var(--muted);margin-top:4px}
+    .pill{border:1px solid var(--line);border-radius:99px;padding:7px 10px;color:var(--muted);font-size:12px;background:#10192a}
+    .hero{background:linear-gradient(135deg,#1d3157,#17223b 58%,#172d38);border:1px solid #344969;border-radius:24px;padding:20px;box-shadow:0 18px 40px #0005}
+    .eyebrow{color:#b8c8e6;font-size:13px}.total{font-size:34px;font-weight:780;letter-spacing:-1px;margin:9px 0 5px;overflow-wrap:anywhere}.herofoot{display:flex;justify-content:space-between;gap:10px;color:#b6c5df;font-size:12px;margin-top:18px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:14px 0}
+    .card,.panel{background:linear-gradient(180deg,#131e31,#101827);border:1px solid var(--line);border-radius:18px;padding:15px}
+    .k{font-size:12px;color:var(--muted)}.v{font-size:18px;font-weight:700;margin-top:7px}.green{color:var(--green)}.red{color:var(--red)}.gold{color:var(--gold)}
+    .sectionhead{display:flex;justify-content:space-between;align-items:center;margin:22px 2px 11px}.sectionhead h2{font-size:16px;margin:0}.link{color:var(--blue);background:none;border:0;padding:5px}
+    .barrow{display:grid;grid-template-columns:74px 1fr auto;gap:10px;align-items:center;margin:13px 0;font-size:13px}.track{height:8px;border-radius:9px;background:#26344b;overflow:hidden}.fill{height:100%;border-radius:9px;background:linear-gradient(90deg,#638bff,#49c8b2)}
+    .list{display:flex;flex-direction:column;gap:9px}.item{display:flex;align-items:center;gap:11px;padding:12px;background:#111a2a;border:1px solid #223049;border-radius:15px}
+    .ico{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:#202e49;color:#9db8ff;font-size:18px}.grow{flex:1;min-width:0}.name{font-weight:650;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.meta{font-size:11px;color:var(--muted);margin-top:4px}.amount{text-align:right;font-weight:650;font-variant-numeric:tabular-nums}.amount small{display:block;color:var(--muted);font-size:10px;font-weight:400;margin-top:4px}
+    nav{position:fixed;bottom:0;left:0;right:0;padding:9px 8px calc(9px + env(safe-area-inset-bottom));background:#0b1220ed;backdrop-filter:blur(20px);border-top:1px solid #27344a;display:flex;justify-content:space-around;z-index:5}
+    nav button{border:0;background:none;color:#8290a8;font-size:10px;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:58px}nav button b{font-size:19px;font-weight:500}nav button.active{color:#9bb6ff}
+    .page{display:none}.page.active{display:block}
+    .primary{background:linear-gradient(135deg,#789cff,#587ce0);color:white;border:0;border-radius:13px;padding:11px 15px;font-weight:650}
+    .secondary{background:#1b2940;border:1px solid #34445e;color:#dce6f8;border-radius:12px;padding:10px 13px}
+    .actions{display:flex;gap:8px;flex-wrap:wrap}
+    .empty{padding:24px;text-align:center;color:var(--muted);border:1px dashed #34445e;border-radius:15px;font-size:13px}
+    .formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{display:flex;flex-direction:column;gap:6px;margin:10px 0}.field.full{grid-column:1/-1}.field label{font-size:12px;color:var(--muted)}.field input,.field select{width:100%;background:#0b1423;border:1px solid #34445e;color:var(--text);border-radius:11px;padding:12px;outline:none}.field input:focus,.field select:focus{border-color:#789cff}
+    dialog{width:min(94vw,520px);max-height:88vh;overflow:auto;background:#111a2b;color:var(--text);border:1px solid #3a4964;border-radius:20px;padding:18px;box-shadow:0 20px 70px #000b}dialog::backdrop{background:#0009;backdrop-filter:blur(4px)}.modalhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.modalhead h3{margin:0}.x{border:0;background:none;color:#aab7cb;font-size:22px}
+    .note{font-size:11px;color:var(--muted);line-height:1.6}.tabs{display:flex;gap:7px;margin:12px 0}.tabs button{flex:1}.tabs button.selected{background:#344b78;border-color:#6e91df;color:white}
+    .flowline{display:flex;justify-content:space-between;gap:10px;align-items:center}.filter{background:#0d1728;border:1px solid #34445e;color:#dce6f8;border-radius:10px;padding:8px}
+    .toast{position:fixed;bottom:95px;left:50%;transform:translateX(-50%);background:#e9f0ff;color:#101827;padding:10px 16px;border-radius:30px;font-size:13px;display:none;z-index:20;box-shadow:0 6px 25px #0008}
+    @media(min-width:600px){.wrap{padding:28px 24px}.total{font-size:42px}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+<header><div><div class="brand">◈ 资产中心</div><div class="sub">PERSONAL WEALTH · 本机私密空间</div></div><span class="pill">● 仅本机保存</span></header>
+
+<main id="overview" class="page active">
+  <section class="hero">
+    <div class="eyebrow">总资产 · 折合人民币</div><div class="total" id="total">¥0.00</div>
+    <div class="eyebrow" id="usdtotal">美元资产 $0.00</div>
+    <div class="herofoot"><span id="assetcount">0 项资产</span><span id="rateLabel">USD/CNY 7.2000</span></div>
+  </section>
+  <div class="grid">
+    <div class="card"><div class="k">本月收入</div><div class="v green" id="monthIncome">¥0.00</div></div>
+    <div class="card"><div class="k">本月支出</div><div class="v red" id="monthExpense">¥0.00</div></div>
+    <div class="card"><div class="k">投资资产</div><div class="v" id="investmentTotal">¥0.00</div></div>
+    <div class="card"><div class="k">存款及现金</div><div class="v gold" id="cashTotal">¥0.00</div></div>
+  </div>
+  <div class="sectionhead"><h2>资产配置</h2><button class="link" data-go="assets">全部资产 →</button></div>
+  <section class="panel" id="allocation"><div class="empty">添加资产后，这里会显示资产分布</div></section>
+  <div class="sectionhead"><h2>最近流水</h2><button class="link" data-go="flows">查看全部 →</button></div>
+  <section class="list" id="recentFlows"><div class="empty">还没有流水记录</div></section>
+</main>
+
+<main id="assets" class="page">
+  <div class="sectionhead"><h2>我的资产</h2><button class="primary" id="addAsset">＋ 添加资产</button></div>
+  <div class="note">股票市值 = 持有数量 × 当前单价。美元资产按设置汇率折算成人民币。</div>
+  <div class="sectionhead"><h2>持有明细</h2><span class="pill" id="assetNum">0 项</span></div>
+  <section class="list" id="assetList"><div class="empty">还没有资产，点击上方添加</div></section>
+</main>
+
+<main id="flows" class="page">
+  <div class="sectionhead"><h2>现金流记录</h2><button class="primary" id="addFlow">＋ 记一笔</button></div>
+  <div class="tabs"><button class="secondary selected" data-filter="all">全部</button><button class="secondary" data-filter="收入">收入</button><button class="secondary" data-filter="支出">支出</button><button class="secondary" data-filter="转账">转账</button></div>
+  <section class="list" id="flowList"><div class="empty">还没有流水记录</div></section>
+  <p class="note">注意：流水记录与资产余额目前分开维护。转账只记录资金流向，不会自动增减资产余额；避免同一笔钱被重复计入。下一版可升级为账户联动账本。</p>
+</main>
+
+<main id="settings" class="page">
+  <div class="sectionhead"><h2>设置与数据</h2></div>
+  <section class="panel">
+    <div class="field"><label>美元兑人民币汇率（USD/CNY）</label><input id="exchangeRate" type="number" inputmode="decimal" step="0.0001" min="0.0001" value="7.2"></div>
+    <button class="primary" id="saveRate">保存汇率</button>
+    <p class="note">当前为手动汇率。自动行情与自动汇率需要后续接入有授权的数据服务；本版本不会伪装成实时行情。</p>
+  </section>
+  <div class="sectionhead"><h2>隐私与备份</h2></div>
+  <section class="panel">
+    <p>数据使用浏览器本机存储（IndexedDB）。本版本不向任何服务器发送你的财务记录。</p>
+    <div class="actions"><button class="secondary" id="exportData">导出备份 JSON</button><button class="secondary" id="importData">导入备份 JSON</button><input id="importFile" type="file" accept="application/json" hidden></div>
+    <p class="note">请定期导出备份。清除 Safari 网站数据、卸载/重置浏览器或设备可能导致数据丢失。导出文件也包含敏感财务信息，请妥善保管。</p>
+  </section>
+  <div class="sectionhead"><h2>数据管理</h2></div>
+  <section class="panel">
+    <button class="secondary" id="resetData">清空本机全部数据</button>
+    <p class="note">此操作不可撤销。建议先导出备份。</p>
+  </section>
+  <div class="sectionhead"><h2>版本</h2></div>
+  <section class="panel"><b>资产中心 · PWA 0.1</b><p class="note">深色界面 · 离线缓存 · 本机保存 · 人民币/美元双币种</p></section>
+</main>
+</div>
+
+<nav>
+  <button class="active" data-go="overview"><b>⌂</b>总览</button>
+  <button data-go="assets"><b>◫</b>资产</button>
+  <button data-go="flows"><b>⇄</b>现金流</button>
+  <button data-go="settings"><b>⚙</b>设置</button>
+</nav>
+<div class="toast" id="toast"></div>
+
+<dialog id="assetDialog">
+  <div class="modalhead"><h3>添加资产</h3><button class="x" data-close="assetDialog">×</button></div>
+  <form id="assetForm">
+    <div class="formgrid">
+      <div class="field full"><label>资产名称</label><input name="name" required placeholder="例如：招商银行活期 / Apple"></div>
+      <div class="field full"><label>资产类别</label><select name="category" id="assetCategory"><option>现金</option><option>银行存款</option><option>定期存款</option><option>A股</option><option>美股</option><option>基金</option><option>其他资产</option></select></div>
+      <div class="field full" id="codeWrap" hidden><label>证券代码（可选）</label><input name="code" placeholder="例如：600519 / AAPL / 510300"></div>
+      <div class="field" id="quantityWrap" hidden><label>持有数量</label><input name="quantity" type="number" min="0" step="any" value="1"></div>
+      <div class="field"><label id="priceLabel">金额</label><input name="price" type="number" min="0" step="any" required placeholder="0.00"></div>
+      <div class="field"><label>币种</label><select name="currency"><option value="CNY">人民币 CNY</option><option value="USD">美元 USD</option></select></div>
+      <div class="field" id="rateWrap" hidden><label>定期年利率（%）</label><input name="annualRate" type="number" min="0" step="any" placeholder="例如 1.8"></div>
+      <div class="field" id="maturityWrap" hidden><label>到期日期</label><input name="maturity" type="date"></div>
+    </div>
+    <p class="note">股票/基金金额栏填写当前单价；其他类别填写当前金额或本金。</p>
+    <button class="primary" type="submit" style="width:100%">保存资产</button>
+  </form>
+</dialog>
+
+<dialog id="flowDialog">
+  <div class="modalhead"><h3>记录现金流</h3><button class="x" data-close="flowDialog">×</button></div>
+  <form id="flowForm">
+    <div class="formgrid">
+      <div class="field"><label>类型</label><select name="type"><option>收入</option><option>支出</option><option>转账</option></select></div>
+      <div class="field"><label>日期</label><input name="date" type="date" required></div>
+      <div class="field full"><label>项目名称</label><input name="title" required placeholder="例如：工资 / 餐饮 / 活期转定期"></div>
+      <div class="field"><label>金额</label><input name="amount" type="number" min="0.01" step="any" required></div>
+      <div class="field"><label>币种</label><select name="currency"><option value="CNY">人民币 CNY</option><option value="USD">美元 USD</option></select></div>
+      <div class="field full"><label>备注（可选）</label><input name="note" placeholder="补充说明"></div>
+    </div>
+    <button class="primary" type="submit" style="width:100%">保存流水</button>
+  </form>
+</dialog>
+<script src="app.js"></script>
+</body></html>
